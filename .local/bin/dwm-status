@@ -1,29 +1,42 @@
 #!/bin/bash
 
-get_cpu() {
+get_cpu_and_temp() {
     echo -n "[CPU "
-    # Get CPU usage for each core
+    # CPU bars
     cpu_usage=($(grep 'cpu[0-9]' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {printf "%.0f ", usage}'))
     for usage in "${cpu_usage[@]}"; do
         echo -n "^c#ff0000^│^d^"
     done
-    echo -n "]"
-}
-
-get_temp() {
+    # Temperature in same bracket with comma
     temp=$(sensors | grep 'Core 0' | awk '{print $3}' | cut -c2-3)
-    echo -n "[TEMP ${temp}°C]"
+    echo -n ", ${temp}°C]"
 }
 
 get_ram() {
-    ram=$(free -h | awk '/^Mem:/ {print $3}')
-    echo -n "[RAM ${ram}]"
+    # Calculate percentage for RAM bar
+    used=$(free | awk '/^Mem:/ {print $3}')
+    total=$(free | awk '/^Mem:/ {print $2}')
+    percent=$((used * 100 / total))
+    
+    # Create ASCII bar based on percentage
+    if [ $percent -ge 75 ]; then
+        bar="█▓▓░"
+    elif [ $percent -ge 50 ]; then
+        bar="█▓░░"
+    elif [ $percent -ge 25 ]; then
+        bar="█░░░"
+    else
+        bar="░░░░"
+    fi
+    
+    ram_human=$(free -h | awk '/^Mem:/ {print $3}')
+    echo -n "[RAM ${bar} ${ram_human}]"
 }
 
 get_processes() {
     procs=$(ps aux | wc -l)
     load_avg=$(uptime | awk -F'load average:' '{print $2}' | awk -F', ' '{print $1","$2}' | tr -d ' ')
-    echo -n "[↕${procs}, ↑${load_avg}]"
+    echo -n "[↓${procs}, ↑${load_avg}]"  # Changed to down arrow first
 }
 
 get_battery() {
@@ -38,11 +51,13 @@ get_battery() {
         color="#00ff00"
     fi
     
-    echo -n "^c#222222^[^d^^c$color^━^d^^c#222222^]^d^"
+    # Increased battery indicator size with multiple blocks
+    echo -n "^c#222222^[^d^^c$color^████^d^^c#222222^]^d^"
 }
 
 get_volume() {
-    vol=$(amixer get Master | awk -F'[][]' 'END{ print $2 }' | tr -d '%')
+    # Using pactl instead of amixer for more reliable volume control
+    vol=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | tr -d '%' | head -n 1)
     echo -n "[VOL ${vol}%]"
 }
 
@@ -52,6 +67,6 @@ get_datetime() {
 
 # Main status loop
 while true; do
-    xsetroot -name "$(get_cpu) $(get_temp) $(get_ram) $(get_processes) $(get_battery) $(get_volume) $(get_datetime)"
+    xsetroot -name "$(get_cpu_and_temp) $(get_ram) $(get_processes) $(get_battery) $(get_volume) $(get_datetime)"
     sleep 2
 done
