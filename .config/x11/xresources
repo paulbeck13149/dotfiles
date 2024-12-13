@@ -1,0 +1,28 @@
+! Defines X11 client application settings like colors and fonts
+
+! dwm window manager
+! Font
+dwm.font: Terminus:size=10
+
+! Colors
+dwm.normfgcolor: #bbbbbb
+dwm.normbgcolor: #222222
+dwm.selfgcolor: #eeeeee
+dwm.selbgcolor: #005577
+
+! Title colors
+dwm.titlenormfgcolor: #bbbbbb
+dwm.titlenormbgcolor: #005577
+
+! Tag colors
+dwm.tagsnormfgcolor: #bbbbbb
+dwm.tagsnormbgcolor: #222222
+dwm.tagsselfgcolor: #eeeeee
+dwm.tagsselbgcolor: #005577
+
+! Remove borders
+dwm.borderpx: 0
+
+! st terminal emulator
+! Font
+st.font: Terminus:size=10
