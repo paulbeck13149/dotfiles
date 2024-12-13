@@ -1,0 +1,5 @@
+#!/bin/sh
+
+procs=$(ps aux | wc -l)
+load_avg=$(uptime | awk -F'load average:' '{print $2}' | awk '{printf "%.2f", $1}')
+echo "[↓${procs}, ↑${load_avg}]"

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+get_cpu_and_temp() {
+    echo -n "CPU "
+    # CPU bars
+    cpu_usage=($(grep 'cpu[0-9]' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {printf "%.0f ", usage}'))
+    for usage in "${cpu_usage[@]}"; do
+        echo -n "^c#ff0000^│^d^"
+    done
+    # Temperature in same bracket with comma
+    temp=$(sensors | grep 'Core 0' | awk '{print $3}' | cut -c2-3)
+    echo -n ", ${temp}°C"
+}
+
+echo "[$(get_cpu_and_temp)]"

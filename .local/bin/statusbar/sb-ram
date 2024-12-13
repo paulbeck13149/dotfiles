@@ -1,0 +1,18 @@
+#!/bin/sh
+
+used=$(free | awk '/^Mem:/ {print $3}')
+total=$(free | awk '/^Mem:/ {print $2}')
+percent=$((used * 100 / total))
+
+if [ $percent -ge 75 ]; then
+    bar="█▓▓░"
+elif [ $percent -ge 50 ]; then
+    bar="█▓░░"
+elif [ $percent -ge 25 ]; then
+    bar="█░░░"
+else
+    bar="░░░░"
+fi
+
+ram_human=$(free -h | awk '/^Mem:/ {print $3}')
+echo "[RAM ${bar} ${ram_human}]"
