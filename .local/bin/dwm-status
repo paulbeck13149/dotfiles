@@ -35,8 +35,9 @@ get_ram() {
 
 get_processes() {
     procs=$(ps aux | wc -l)
-    load_avg=$(uptime | awk -F'load average:' '{print $2}' | awk -F', ' '{print $1","$2}' | tr -d ' ')
-    echo -n "[↓${procs}, ↑${load_avg}]"  # Changed to down arrow first
+    # Get just the 1-minute load average and format it to 2 decimal places
+    load_avg=$(uptime | awk -F'load average:' '{print $2}' | awk '{printf "%.2f", $1}')
+    echo -n "[↓${procs}, ↑${load_avg}]"
 }
 
 get_battery() {
@@ -51,8 +52,8 @@ get_battery() {
         color="#00ff00"
     fi
     
-    # Increased battery indicator size with multiple blocks
-    echo -n "^c#222222^[^d^^c$color^████^d^^c#222222^]^d^"
+    # Smaller battery indicator with lighter background
+    echo -n "^c#333333^[^d^^c$color^██^d^^c#333333^]^d^"  # Changed from ████ to ██ and #222222 to #333333
 }
 
 get_volume() {
