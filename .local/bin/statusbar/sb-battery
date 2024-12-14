@@ -4,26 +4,7 @@ capacity=$(cat /sys/class/power_supply/BAT0/capacity)
 status=$(cat /sys/class/power_supply/BAT0/status)
 
 if [ "$status" = "Charging" ]; then
-    color="#00ff00"    # Green for charging
-elif [ $capacity -le 20 ]; then
-    color="#ff0000"    # Red for low
-elif [ $capacity -le 50 ]; then
-    color="#ffff00"    # Yellow for medium
+    echo "[BAT ${capacity}% CHR]"
 else
-    color="#00ff00"    # Green for good
+    echo "[BAT ${capacity}%]"
 fi
-
-# Choose block character based on capacity
-if [ $capacity -ge 90 ]; then
-    battery="█▊"
-elif [ $capacity -ge 75 ]; then
-    battery="█▌"
-elif [ $capacity -ge 50 ]; then
-    battery="█▎"
-elif [ $capacity -ge 25 ]; then
-    battery="▊ "
-else
-    battery="▎ "
-fi
-
-echo "^c#333333^[^d^^c$color^$battery^d^ ${capacity}%^c#333333^]^d^"
