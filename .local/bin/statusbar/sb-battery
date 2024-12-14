@@ -14,19 +14,9 @@ else
     color="#00ff00"
 fi
 
-# Create proportional bar using gradients
-filled="━"
-empty="─"
-width=8  # Total width of bar
-filled_width=$((width * capacity / 100))
-empty_width=$((width - filled_width))
+# Calculate width of filled portion (total width 20 pixels)
+filled_width=$((capacity * 20 / 100))
 
-bar=""
-for i in $(seq 1 $filled_width); do
-    bar="${bar}${filled}"
-done
-for i in $(seq 1 $empty_width); do
-    bar="${bar}${empty}"
-done
-
-echo "^c#333333^▎^d^^c$color^$bar^d^^c#333333^▕^d^"
+# Draw battery using rectangles
+# Format: ^r<width>x<height>+<xoffset>+<yoffset>^
+echo "^c#333333^^r22x6+0+0^^f1^^c$color^^r${filled_width}x4+1+1^^f1^^c#333333^^r2x3+22+1.5^"
