@@ -14,9 +14,7 @@ else
     color="#00ff00"
 fi
 
-# Calculate width of filled portion (total width 20 pixels)
-filled_width=$((capacity * 20 / 100))
-
-# Draw battery using rectangles
-# Format: ^r<width>x<height>+<xoffset>+<yoffset>^
-echo "^c#333333^^r22x6+0+0^^f1^^c$color^^r${filled_width}x4+1+1^^f1^^c#333333^^r2x3+22+1.5^"
+# Draw a smaller battery
+# Main body 10x5 pixels, terminal 2x3 pixels
+filled_width=$((capacity * 8 / 100))  # Scaled down from 20 to 8
+echo "^c#333333^^r10x5+0+0^^f1^^c$color^^r${filled_width}x3+1+1^^f1^^c#333333^^r1x2+10+1.5^"
