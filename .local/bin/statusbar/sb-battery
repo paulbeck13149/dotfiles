@@ -3,7 +3,6 @@
 capacity=$(cat /sys/class/power_supply/BAT0/capacity)
 status=$(cat /sys/class/power_supply/BAT0/status)
 
-# Determine color based on thresholds
 if [ "$status" = "Charging" ]; then
     color="#00ff00"
 elif [ $capacity -le 20 ]; then
@@ -14,6 +13,5 @@ else
     color="#00ff00"
 fi
 
-# Add spaces before and after the battery to prevent overlap
-# Reduced size even further and added spacing
-echo " ^c#333333^^r8x4+0+0^^f1^^c$color^^r$((capacity * 6 / 100))x2+1+1^^f1^^c#333333^^r1x2+8+1^ "
+# Just draw a single rectangle first to test
+echo " ^r3x3^ "
