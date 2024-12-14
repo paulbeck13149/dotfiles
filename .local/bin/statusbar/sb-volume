@@ -1,8 +1,10 @@
 #!/bin/sh
 
-vol=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | tr -d '%' | head -n 1)
-muted=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')
+# Get volume and mute status from pamixer
+vol="$(pamixer --get-volume)"
+muted="$(pamixer --get-mute)"
 
+# Show different text based on volume level and mute status
 if [ "$muted" = "yes" ]; then
     echo "[VOL MUTE]"
 else
