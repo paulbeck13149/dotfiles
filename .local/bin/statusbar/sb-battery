@@ -14,7 +14,6 @@ else
     color="#00ff00"
 fi
 
-# Draw a smaller battery
-# Main body 10x5 pixels, terminal 2x3 pixels
-filled_width=$((capacity * 8 / 100))  # Scaled down from 20 to 8
-echo "^c#333333^^r10x5+0+0^^f1^^c$color^^r${filled_width}x3+1+1^^f1^^c#333333^^r1x2+10+1.5^"
+# Add spaces before and after the battery to prevent overlap
+# Reduced size even further and added spacing
+echo " ^c#333333^^r8x4+0+0^^f1^^c$color^^r$((capacity * 6 / 100))x2+1+1^^f1^^c#333333^^r1x2+8+1^ "
