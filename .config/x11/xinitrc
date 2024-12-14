@@ -19,9 +19,6 @@ picom -b
     xwallpaper --"$WALLPAPER_MODE" "$WALLPAPER"
 
 # Start status bar
-# [ -x "$HOME/.local/bin/dwm-status" ] && "$HOME/.local/bin/dwm-status" &
-
-# The binary of `dwmblocks-async` is named `dwmblocks`
 dwmblocks &
 
 # Start window manager
