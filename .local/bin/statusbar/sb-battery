@@ -13,5 +13,5 @@ else
     color="#00ff00"
 fi
 
-# Just draw a single rectangle first to test
-echo " ^r3x3^ "
+# Using the same style as your CPU script
+echo "^c#333333^[^d^^c$color^■^d^^c#333333^]^d^"
