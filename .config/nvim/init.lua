@@ -1,5 +1,11 @@
 -- Bootstraps base editor setup and plugin system
 
+-- Get the config directory path
+local config_path = vim.fn.stdpath('config')
+
+-- Add it to the Lua package path
+package.path = config_path .. '/?.lua;' .. config_path .. '/?/init.lua;' .. package.path
+
 -- Loads and initializes core configuration
 require("core.options")
 require("core.mappings")
