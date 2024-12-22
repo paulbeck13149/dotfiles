@@ -3,7 +3,7 @@
 capacity=$(cat /sys/class/power_supply/BAT0/capacity)
 charging=$(cat /sys/class/power_supply/AC/online)
 
-if [ "$charging" = 1 ]; then
+if [ "$charging" = "1" ]; then
     echo "[BAT ${capacity}% CHR]"
 else
     echo "[BAT ${capacity}%]"
