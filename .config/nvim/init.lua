@@ -29,11 +29,6 @@ require("lazy").setup({
         "nvim-telescope/telescope.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
     },
-    "nvim-tree/nvim-tree.lua",
-    {
-        "nvim-lualine/lualine.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-    },
     -- Load all other plugin configurations
     require("plugins.editor"),
     require("plugins.git"),
@@ -41,4 +36,5 @@ require("lazy").setup({
     require("plugins.theme"),
     require("plugins.treesitter"),
     require("plugins.ui"),
+    require("plugins.tree"),
 })
