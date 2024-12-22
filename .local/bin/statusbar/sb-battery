@@ -4,8 +4,13 @@
 actual_capacity=$(cat /sys/class/power_supply/BAT0/capacity)
 charging=$(cat /sys/class/power_supply/AC/online)
 
-# Get the true maximum percentage the battery can reach (from ACPI)
-true_max=$(acpi -i | grep "design capacity" | awk '{print $4}' | tr -d '%,')
+# Extract true max percentage from ACPI
+true_max=$(acpi -i | grep "last full capacity" | grep -o '[0-9]*%' | tr -d '%')
+
+# Fallback to 81 if extraction fails
+if [ -z "$true_max" ] || [ "$true_max" -eq 0 ]; then
+    true_max=81
+fi
 
 # If current capacity is above true_max, normalize it to 100%
 if [ "$actual_capacity" -gt "$true_max" ]; then
