@@ -1,10 +1,22 @@
 #!/bin/sh
 
-capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+# Get the real current capacity percentage
+actual_capacity=$(cat /sys/class/power_supply/BAT0/capacity)
 charging=$(cat /sys/class/power_supply/AC/online)
 
-if [ "$charging" = "1" ]; then
-    echo "[BAT ${capacity}% CHR]"
+# Get the true maximum percentage the battery can reach (from ACPI)
+true_max=$(acpi -i | grep "design capacity" | awk '{print $4}' | tr -d '%,')
+
+# If current capacity is above true_max, normalize it to 100%
+if [ "$actual_capacity" -gt "$true_max" ]; then
+    display_capacity=100
 else
-    echo "[BAT ${capacity}%]"
+    # Otherwise calculate the relative percentage
+    display_capacity=$((actual_capacity * 100 / true_max))
+fi
+
+if [ "$charging" = "1" ]; then
+    echo "[BAT ${display_capacity}% CHR]"
+else
+    echo "[BAT ${display_capacity}%]"
 fi
