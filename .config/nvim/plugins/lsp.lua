@@ -1,13 +1,32 @@
--- Sets up language servers
-local lspconfig = require("lspconfig")
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
--- Basic keymaps for LSP
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover documentation" })
-vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
-
--- Example server setup (add what you need)
-lspconfig.pyright.setup({
-	capabilities = capabilities,
-})
+return {
+    {
+        "williamboman/mason.nvim",
+        build = ":MasonUpdate",
+        config = function()
+            require("mason").setup()
+        end
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        config = function()
+            require("mason-lspconfig").setup({
+                ensure_installed = { "lua_ls" }
+            })
+        end
+    },
+    {
+        "neovim/nvim-lspconfig",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+        },
+    },
+    {
+        "hrsh7th/nvim-cmp",
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp",
+            "L3MON4D3/LuaSnip",
+            "saadparwaiz1/cmp_luasnip",
+        },
+    },
+}
