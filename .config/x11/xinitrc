@@ -18,6 +18,9 @@ picom -b
 [ -n "$WALLPAPER" ] && [ -f "$WALLPAPER" ] && \
     xwallpaper --"$WALLPAPER_MODE" "$WALLPAPER"
 
+# Disable screen blanking and DPMS
+xset s off -dpms
+
 # Start status bar
 dwmblocks &
 
