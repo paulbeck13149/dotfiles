@@ -1,2 +1,3 @@
 #!/bin/sh
 # Defines shell command shortcuts and abbreviations
+alias ls='ls --color=auto'
