@@ -43,17 +43,6 @@ zstyle ':vcs_info:git:*' formats ' [%b]'
 setopt PROMPT_SUBST
 PROMPT='%F{green}%n@%m%f:%F{blue}%~%f${vcs_info_msg_0_}$ '
 
-# Show reminder on startup
-function show_reminder() {
-    echo -e "\033[1;34m----------------------------------------\033[0m"
-    echo -e "\033[1;37mSome days, you put your head down and work.\033[0m"
-    echo -e "\033[0;32mNot every impulse needs attention.\033[0m"
-    echo -e "\033[0;32mNot every moment needs to feel perfect.\033[0m"
-    echo -e "\033[0;32mToday is for focus.\033[0m"
-    echo -e "\033[1;34m----------------------------------------\033[0m"
-}
-show_reminder
-
 # Lazy load nvm - using XDG dirs from profile
 if [ -s "$NVM_DIR/nvm.sh" ]; then
     nvm() {
