@@ -40,7 +40,32 @@ require("lazy").setup({
             })
         end
     },
-    "neovim/nvim-lspconfig",
+    -- LSP Support
+    {
+        "williamboman/mason.nvim",
+        build = ":MasonUpdate",
+        config = function()
+            require("mason").setup()
+        end
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        config = function()
+            require("mason-lspconfig").setup({
+                ensure_installed = {
+                    "lua_ls",  -- Lua
+                    -- Add other servers you want automatically installed
+                }
+            })
+        end
+    },
+    {
+        "neovim/nvim-lspconfig",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+        },
+    },
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
@@ -54,13 +79,13 @@ require("lazy").setup({
         "nvim-lualine/lualine.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
-    -- Add the Modus theme
+    -- Theme
     {
         "miikanissi/modus-themes.nvim",
         priority = 1000,
         config = function()
             require('modus-themes').setup({
-                variant = "vivendi", -- Forces the dark variant
+                variant = "vivendi",
                 dim_inactive = false,
                 styles = {
                     comments = { italic = true },
