@@ -1,9 +1,9 @@
 #!/bin/sh
 
 capacity=$(cat /sys/class/power_supply/BAT0/capacity)
-status=$(cat /sys/class/power_supply/BAT0/status)
+charging=$(cat /sys/class/power_supply/AC/online)
 
-if [ "$status" = "Charging" ]; then
+if [ "$charging" = "1" ]; then
     echo "[BAT ${capacity}% CHR]"
 else
     echo "[BAT ${capacity}%]"
