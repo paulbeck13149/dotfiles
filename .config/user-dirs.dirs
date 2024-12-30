@@ -1,0 +1,4 @@
+# Defines default directories for XDG user directory specification
+XDG_DOWNLOAD_DIR="$HOME/dl"
+XDG_DOCUMENTS_DIR="$HOME/docs"
+XDG_PICTURES_DIR="$HOME/pix"

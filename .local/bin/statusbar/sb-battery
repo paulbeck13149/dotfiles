@@ -1,0 +1,27 @@
+#!/bin/sh
+
+actual_capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+charging=$(cat /sys/class/power_supply/AC/online)
+
+true_max=$(acpi -i | grep "last full capacity" | grep -o '[0-9]*%' | tr -d '%')
+
+if [ -z "$true_max" ] || [ "$true_max" -eq 0 ]; then
+    true_max=81
+fi
+
+# Keep low percentages as-is for safety
+if [ "$actual_capacity" -le 20 ]; then
+    display_capacity=$actual_capacity
+# If current capacity is above true_max, normalize it to 100%
+elif [ "$actual_capacity" -gt "$true_max" ]; then
+    display_capacity=100
+else
+    # Otherwise calculate the relative percentage
+    display_capacity=$((actual_capacity * 100 / true_max))
+fi
+
+if [ "$charging" = "1" ]; then
+    echo "[BAT ${display_capacity}% CHR]"
+else
+    echo "[BAT ${display_capacity}%]"
+fi

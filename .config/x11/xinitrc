@@ -1,0 +1,31 @@
+#!/bin/sh
+# Configures startup programs and settings for X11 window system sessions
+
+# Source additional environment variables
+[ -f "$XDG_CONFIG_HOME/env.conf" ] && . "$XDG_CONFIG_HOME/env.conf"
+
+# Ensure proper systemd/DBus integration
+systemctl --user import-environment DISPLAY XAUTHORITY
+dbus-update-activation-environment --systemd DISPLAY XAUTHORITY
+
+# Load X resources
+[ -f "$XDG_CONFIG_HOME/x11/xresources" ] && xrdb -merge "$XDG_CONFIG_HOME/x11/xresources"
+
+# Start compositor
+picom -b
+
+# Set wallpaper
+[ -n "$WALLPAPER" ] && [ -f "$WALLPAPER" ] && \
+    xwallpaper --"$WALLPAPER_MODE" "$WALLPAPER"
+
+# Disable screen blanking and DPMS
+xset s off -dpms
+
+# Start redshift with constant temperature
+redshift -P -O 3500 &
+
+# Start status bar
+dwmblocks &
+
+# Start window manager
+exec dwm

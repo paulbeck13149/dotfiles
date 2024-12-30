@@ -1,0 +1,48 @@
+#!/bin/sh
+# Sets up shell-independent environment variables and startup programs
+
+# XDG Base Directory specification
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+
+# Shell configuration
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export HISTFILE="$XDG_STATE_HOME/history"
+export HISTSIZE=50000
+export SAVEHIST=50000
+
+# Default applications
+export EDITOR="nvim"
+export TERMINAL="st"
+export BROWSER="firefox"
+export FILE="lf"
+export IMAGE="nsxiv"
+export VIDEO="mpv"
+
+# Development paths
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export CARGO_HOME="$XDG_CONFIG_HOME/cargo"
+export GOPATH="$XDG_DATA_HOME/go"
+export GOMODCACHE="$XDG_CACHE_HOME/go/mod"
+export NVM_DIR="$XDG_DATA_HOME/nvm"
+export GEM_HOME="$XDG_DATA_HOME/gem"
+export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"
+export PYTHONUSERBASE="$XDG_DATA_HOME/python"
+export NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+
+# X11 and desktop
+export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
+export XAUTHORITY="$XDG_CONFIG_HOME/x11/xauthority"
+export _JAVA_AWT_WM_NONPARENTiNG=1
+export WALLPAPER_DIR="$XDG_DATA_HOME/wallpapers"
+
+# Program configs
+export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
+export LESSHISTFILE="$XDG_STATE_HOME/less_history"
+export ELECTRUMDIR="$XDG_DATA_HOME/electrum"
+export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
+export TMUX_CONFIG_DIR="$XDG_CONFIG_HOME/tmux"
+export TMUX_PLUGIN_MANAGER_PATH="$XDG_DATA_HOME/tmux/plugins"

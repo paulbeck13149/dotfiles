@@ -1,0 +1,5 @@
+#!/bin/sh
+# Defines shell command shortcuts and abbreviations
+
+# Enable colored output for 'ls' command
+alias ls='ls --color=auto'
