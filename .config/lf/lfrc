@@ -16,10 +16,5 @@ set dircounts true
 # Visual separators
 set drawbox true
 
-# Colors for better visibility
-set dircolor        "\033[34m"     # blue for directories
-set linkcolor       "\033[36m"     # cyan for symlinks
-set hiddencolor     "\033[38;5;244m" # gray for hidden files
-
 # Toggle hidden files with . key
 map . set hidden!
