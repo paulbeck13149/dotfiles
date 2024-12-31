@@ -1,6 +1,3 @@
-# Clear text markers for different file types
-set classify ' :dir:/, :exe:*, :link:@'
-
 # Show hidden files
 set hidden true
 
