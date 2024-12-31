@@ -1,0 +1,25 @@
+# Clear text markers for different file types
+set classify ' :dir:/, :exe:*, :link:@'
+
+# Show hidden files
+set hidden true
+
+# Show file size and time in status
+set info size:time
+
+# Clear search filter when navigating
+set incsearch true
+
+# Show directory item counts
+set dircounts true
+
+# Visual separators
+set drawbox true
+
+# Colors for better visibility
+set dircolor        "\033[34m"     # blue for directories
+set linkcolor       "\033[36m"     # cyan for symlinks
+set hiddencolor     "\033[38;5;244m" # gray for hidden files
+
+# Toggle hidden files with . key
+map . set hidden!
